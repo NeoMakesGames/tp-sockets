@@ -5,7 +5,7 @@ def server():
     host = socket.gethostname()
 
     # Especificar el puerto para escuchar
-    # TO DO
+    port = 1421
 
     # Crear un objeto socket
     s = socket.socket()
@@ -14,7 +14,7 @@ def server():
     s.bind((host, port))
 
     # Escuchar conexiones ingresantes
-    # TO DO
+    s.listen(5)
 
     # Aceptar conexiones entrantes
     c, address = s.accept()
@@ -26,15 +26,16 @@ def server():
         data = c.recv(1024).decode()
 
         # setear en newMsg si hay data nueva (si no, rompe el ciclo)
-        newMsg = data:
+        if not data: break
+        newMsg = data
         print(f"Recibido de cliente: {data}")
 
         # Obtener el input de usuario y enviar al cliente (usar response.encode())
         response = input("Enter response to send to client: ")
-        # TO DO
+        c.send(response.encode())
 
     # Cerrar la conexión con el cliente
-    # TO DO
+    s.close()
 
 
 if __name__ == "__main__":
